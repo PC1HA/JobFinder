@@ -3,6 +3,7 @@ from typing import List, Dict, Any
 
 
 class BaseAPI(ABC):
+    """Абстрактный класс для работы с API"""
     @abstractmethod
     def connect(self) -> None:
         """Подключается к API."""

@@ -1,4 +1,5 @@
 class Vacancy:
+    """Класс для работы с вакансиями"""
     __slots__ = ('title', 'url', 'salary', 'description')
 
     def __init__(self, title: str, url: str, salary: str, description: str) -> None:

@@ -4,6 +4,7 @@ from src.base_api import BaseAPI
 
 
 class HeadHunterAPI(BaseAPI):
+    """Реализация API для hh.ru"""
     BASE_URL = "https://api.hh.ru/vacancies"
 
     def connect(self) -> None:
