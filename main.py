@@ -18,7 +18,7 @@ def user_interaction() -> None:
         Vacancy(
             v['name'],
             v['alternate_url'],
-            v.get('salary', {}).get('from', 0),
+            v['salary']['from'] if v.get('salary') else 0,  # Проверяем наличие 'salary'
             v['snippet']['requirement']
         ) for v in vacancies_data
     ]

@@ -25,7 +25,10 @@ def sort_vacancies(vacancies: List[Vacancy]) -> List[Vacancy]:
     Returns:
         List[Vacancy]: Отсортированный список вакансий.
     """
-    return sorted(vacancies, key=lambda v: (int(v.salary.split()[0]) if v.salary.isdigit() else float('inf')))
+    return sorted(vacancies, key=lambda v: (
+        v.salary if isinstance(v.salary, int) else int(v.salary.split()[0]) if v.salary.isdigit() else float('inf')
+    )
+                  )
 
 
 def get_top_vacancies(vacancies: List['Vacancy'], n: int) -> List['Vacancy']:
