@@ -1,4 +1,5 @@
 import unittest
+
 from src.vacancy import Vacancy
 
 
@@ -43,5 +44,8 @@ class TestVacancy(unittest.TestCase):
         vacancy = Vacancy(title="Software Engineer", url="http://example.com", salary="100000",
                           description="Develop software.")
 
-        expected_repr = "Vacancy(title=Software Engineer, url=http://example.com, salary=100000, description=Develop software.)"
+        expected_repr = ("Vacancy(title=Software Engineer,"
+                         " url=http://example.com,"
+                         " salary=100000,"
+                         " description=Develop software.)")
         self.assertEqual(repr(vacancy), expected_repr)

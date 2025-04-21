@@ -1,6 +1,7 @@
 import unittest
+from typing import Any, Dict, List
+
 from src.base_api import BaseAPI
-from typing import List, Dict, Any
 
 
 class MockAPI(BaseAPI):

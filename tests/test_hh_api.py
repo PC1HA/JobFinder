@@ -1,12 +1,14 @@
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
+from typing import Dict, Any, List
+
 from src.hh_api import HeadHunterAPI
 
 
 class TestHeadHunterAPI(unittest.TestCase):
     """Тесты для класса HeadHunterAPI."""
 
-    @patch('src.headhunter_api.requests.get')
+    @patch('src.hh_api.requests.get')
     def test_connect_success(self, mock_get: Mock) -> None:
         """Тестирование успешного подключения к API."""
         mock_get.return_value.status_code = 200
@@ -17,7 +19,7 @@ class TestHeadHunterAPI(unittest.TestCase):
         except Exception:
             self.fail("connect() raised Exception unexpectedly!")
 
-    @patch('src.headhunter_api.requests.get')
+    @patch('src.hh_api.requests.get')
     def test_connect_failure(self, mock_get: Mock) -> None:
         """Тестирование неудачного подключения к API."""
         mock_get.return_value.status_code = 404
@@ -28,10 +30,10 @@ class TestHeadHunterAPI(unittest.TestCase):
 
         self.assertEqual(str(context.exception), "Failed to connect to API")
 
-    @patch('src.headhunter_api.requests.get')
+    @patch('src.hh_api.requests.get')
     def test_get_vacancies_success(self, mock_get: Mock) -> None:
         """Тестирование успешного получения вакансий."""
-        mock_response = {
+        mock_response: Dict[str, Any] = {  # Явная аннотация типа
             'items': [
                 {'id': '1', 'name': 'Software Engineer'},
                 {'id': '2', 'name': 'Data Scientist'}
@@ -46,10 +48,10 @@ class TestHeadHunterAPI(unittest.TestCase):
         self.assertEqual(len(vacancies), 2)
         self.assertEqual(vacancies[0]['name'], 'Software Engineer')
 
-    @patch('src.headhunter_api.requests.get')
+    @patch('src.hh_api.requests.get')
     def test_get_vacancies_no_results(self, mock_get: Mock) -> None:
         """Тестирование получения вакансий при отсутствии результатов."""
-        mock_response = {
+        mock_response: Dict[str, Any] = {  # Явная аннотация типа
             'items': []
         }
         mock_get.return_value.json.return_value = mock_response

@@ -36,8 +36,24 @@ class Vacancy:
         Returns:
             bool: True если текущая вакансия имеет меньшую зарплату.
         """
-        return int(self.salary.split()[0]) < int(other.salary.split()[0])
+        if self.salary == "Зарплата не указана":
+            return False
+        if other.salary == "Зарплата не указана":
+            return True
+
+        try:
+            return int(self.salary.split()[0]) < int(other.salary.split()[0])
+        except ValueError:
+            return False
 
     def __repr__(self) -> str:
         """Возвращает строковое представление объекта Vacancy."""
         return f"Vacancy(title={self.title}, url={self.url}, salary={self.salary}, description={self.description})"
+
+    def to_dict(self) -> dict:
+        return {
+            'title': self.title,
+            'salary': self.salary,
+            'url': self.url,
+            'description': self.description,
+        }

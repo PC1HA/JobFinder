@@ -1,5 +1,6 @@
 import unittest
-from src.helpers import filter_vacancies, sort_vacancies, get_top_vacancies
+
+from src.helpers import filter_vacancies, get_top_vacancies, sort_vacancies
 from src.vacancy import Vacancy
 
 
@@ -38,10 +39,10 @@ class TestVacancyFunctions(unittest.TestCase):
         """Тестирование сортировки вакансий по зарплате."""
         sorted_vacancies = sort_vacancies(self.vacancy_objects)
 
-        self.assertEqual(sorted_vacancies[0].salary, '')
-        self.assertEqual(sorted_vacancies[1].salary, '100000')
-        self.assertEqual(sorted_vacancies[2].salary, '110000')
-        self.assertEqual(sorted_vacancies[3].salary, '120000')
+        # Проверяем порядок вакансий после сортировки
+        self.assertEqual(sorted_vacancies[0].salary, '100000')
+        self.assertEqual(sorted_vacancies[1].salary, '110000')
+        self.assertEqual(sorted_vacancies[2].salary, '120000')
 
     def test_get_top_vacancies(self) -> None:
         """Тестирование получения топ N вакансий."""

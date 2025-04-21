@@ -1,7 +1,7 @@
-from api.hh_api import HeadHunterAPI
-from models.vacancy import Vacancy
-from storage.json_storage import JSONStorage
-from utils.helpers import filter_vacancies, sort_vacancies, get_top_vacancies
+from src.hh_api import HeadHunterAPI
+from src.vacancy import Vacancy
+from src.json_storage import JSONStorage
+from src.helpers import sort_vacancies, get_top_vacancies
 
 
 def user_interaction() -> None:
@@ -24,22 +24,21 @@ def user_interaction() -> None:
     ]
 
     # Сохранение вакансий в файл.
+    json_saver = JSONStorage('data/test_vacancies.json')  # Укажите имя файла для сохранения
 
+    for vacancy in vacancies_list:
+        json_saver.add_vacancy(vacancy)
 
-json_saver = JSONStorage()
+    top_n = int(input("Введите количество вакансий для вывода в топ N: "))
 
-for vacancy in vacancies_list:
-    json_saver.add_vacancy(vacancy)
+    sorted_vacancies = sort_vacancies(vacancies_list)
 
-top_n = int(input("Введите количество вакансий для вывода в топ N: "))
+    top_vacancies = get_top_vacancies(sorted_vacancies, top_n)
 
-sorted_vacancies = sort_vacancies(vacancies_list)
+    print("Топ вакансий:")
+    for vacancy in top_vacancies:
+        print(vacancy)
 
-top_vacancies = get_top_vacancies(sorted_vacancies, top_n)
-
-print("Топ вакансий:")
-for vacancy in top_vacancies:
-    print(vacancy)
 
 if __name__ == "__main__":
     user_interaction()

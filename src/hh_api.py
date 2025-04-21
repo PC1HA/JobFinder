@@ -1,5 +1,7 @@
+from typing import Any, Dict, List
+
 import requests
-from typing import List, Dict, Any
+
 from src.base_api import BaseAPI
 
 
@@ -25,7 +27,11 @@ class HeadHunterAPI(BaseAPI):
         self.connect()
         params = {
             'text': search_query,
-            'per_page': 20,
+            'per_page': str(20),
         }
+
         response = requests.get(self.BASE_URL, params=params)
-        return response.json().get('items', [])
+
+        items = response.json().get('items', [])
+
+        return [item for item in items if isinstance(item, dict)]

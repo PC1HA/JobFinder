@@ -1,6 +1,5 @@
 import json
 import os
-from typing import List, Dict
 
 from src.vacancy import Vacancy
 
@@ -25,20 +24,17 @@ class JSONStorage:
             vacancy (Vacancy): Вакансия для добавления.
         """
         with open(self._filename, 'a') as f:
-            json.dump(vacancy.__dict__, f)
+            json.dump(vacancy.to_dict(), f)
             f.write('\n')
 
-    def get_vacancies(self) -> List[Dict]:
-        """Получает все вакансии из файла.
-
-        Returns:
-            List[Dict]: Список вакансий в формате словарей.
-        """
-        if not os.path.exists(self._filename):
-            return []
-
-        with open(self._filename) as f:
-            return [json.loads(line) for line in f]
+    def get_vacancies(self) -> list:
+        """Получает все вакансии из файла."""
+        vacancies = []
+        with open(self._filename, 'r') as f:
+            for line in f:
+                if line.strip():
+                    vacancies.append(json.loads(line))
+        return vacancies
 
     def delete_vacancy(self, vacancy_title: str) -> None:
         """Удаляет вакансию по названию из файла.
